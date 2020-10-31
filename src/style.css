@@ -1,0 +1,101 @@
+.App {
+  width: 800px;
+  margin: 50px auto;
+  border: 2px grey solid;
+}
+
+.header-block {
+  height: 300px;
+  background: white;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+.colors-list {
+  max-width: 180px;
+  line-height: 0;
+  font-size: 0;
+  position: relative;
+}
+.colors-list > div {
+  display: inline-block;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  margin: 0 5px 5px 0;
+  position: relative;
+  border: 1px grey solid;
+}
+.canvas-block {
+  height: 500px;
+  border-top: 2px red solid;
+}
+
+.canvas-block canvas {
+  cursor: crosshair;
+}
+
+.user-list > div {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.user-list .user-avatar {
+  width: 30px;
+  height: 30px;
+  background-color: #ccc;
+  margin-right: 10px;
+  background-size: cover;
+  border-radius: 6px;
+  border: 1px #808080 solid;
+}
+.user-list i {
+  display: block;
+  color: grey;
+  font-size: 13px;
+  font-style: normal;
+  line-height: 1;
+}
+
+.user-list {
+  width: 200px;
+  height: 230px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.header-block label {
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: left;
+  color: #000;
+  font-weight: 700;
+  margin: 10px 0;
+  display: block;
+}
+.user-nickname {
+  display: flex;
+  flex-direction: column;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
