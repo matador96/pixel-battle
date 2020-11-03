@@ -30,6 +30,7 @@
 .canvas-block {
   height: 500px;
   border-top: 2px red solid;
+  overflow: hidden;
 }
 
 .canvas-block canvas {
