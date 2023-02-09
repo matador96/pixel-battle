@@ -26,7 +26,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     // Не вызывайте здесь this.setState()!
-    this.state = { dx: 0, dy: 0, zoom: 1 };
+    // dx: 0, dy: 0, zoom: 1,
+    this.state = { color: "#fff" };
   }
 
   componentDidMount() {
@@ -56,26 +57,35 @@ export default class App extends React.Component {
     // );
   }
 
-  zoomIn = () => {
-    this.setState({
-      zoom: this.state.zoom + 0.2,
-    });
-  };
+  // zoomIn = () => {
+  //   this.setState({
+  //     zoom: this.state.zoom + 0.2,
+  //   });
+  // };
 
-  zoomOut = () => {
-    this.setState({
-      zoom: this.state.zoom - 0.2,
-    });
-  };
+  // zoomOut = () => {
+  //   this.setState({
+  //     zoom: this.state.zoom - 0.2,
+  //   });
+  // };
 
-  onPan = (dx: number, dy: number) => {
+  // onPan = (dx: number, dy: number) => {
+  //   this.setState({
+  //     dx,
+  //     dy,
+  //   });
+  // };
+
+  changeColor = (color) => {
+    console.log(color);
     this.setState({
-      dx,
-      dy,
+      color: color,
     });
   };
 
   render() {
+    // const { zoom, dx, onPan, dy } = this.state;
+
     return (
       <div className="App">
         <header></header>
@@ -88,11 +98,12 @@ export default class App extends React.Component {
                   id={color.hex}
                   data-color={color.hex}
                   style={{ backgroundColor: color.rgb }}
+                  onClick={() => this.changeColor(color.hex)}
                 />
               ))}
             </div>
           </div>
-          <div className="users-top-block">
+          {/* <div className="users-top-block">
             <label>Топ</label>
             <div className="user-list">
               {users.map((user) => (
@@ -108,22 +119,32 @@ export default class App extends React.Component {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
-        <div>
+        {/* <div>
           <button onClick={this.zoomOut}>-</button>
-          <input type="range" id="volume" name="volume" min="0" max="11"/>
+          <input type="range" id="volume" name="volume" min="0" max="11" />
           <button onClick={this.zoomIn}>+</button>
-        </div>
+        </div> */}
         <div className="canvas-block">
-        *<StyledReactPanZoom
+          {/* <StyledReactPanZoom
             zoom={this.state.zoom}
             pandx={this.state.dx}
             pandy={this.state.dy}
             onPan={this.onPan}
-          > 
-            <Canvas zoomIn={this.state.zoomIn} zoomOut={this.state.zoomOut}/>
-         </StyledReactPanZoom>
+          > */}
+          <Canvas
+            // settings={{
+            //   zoom,
+            //   dx,
+            //   onPan,
+            //   dy,
+            // }}
+            // zoomIn={this.state.zoomIn}
+            // zoomOut={this.state.zoomOut}
+            choosedColor={this.state.color}
+          />
+          {/* </StyledReactPanZoom> */}
         </div>
       </div>
     );
