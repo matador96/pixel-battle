@@ -4,6 +4,12 @@
   border: 2px grey solid;
 }
 
+canvas{
+  image-rendering: pixelated;
+  object-fit: contain;
+  background-color: gainsboro;
+}
+
 iframe{
   pointer-events: none;
 }
