@@ -1,5 +1,5 @@
-import React from "react";
-import colors from "./../consts/colors";
+import React from 'react';
+import colors from './../consts/colors';
 
 const width = 200; // Elements in row
 const height = 200; // Elements in cell
@@ -23,55 +23,39 @@ export default class Canvas extends React.Component {
   componentDidMount() {
     this.generateRandomPixels();
     this.canvas = this.refs.canvas;
-    this.canvasContext = this.canvas.getContext("2d");
+    this.canvasContext = this.canvas.getContext('2d');
 
     const { canvas, canvasContext } = this;
 
     canvasContext.translate(
       canvasWidth / 2 - (width * defaultScaleCanvas) / 2,
-      canvasHeight / 2 - (height * defaultScaleCanvas) / 2
+      canvasHeight / 2 - (height * defaultScaleCanvas) / 2,
     );
     canvasContext.scale(defaultScaleCanvas, defaultScaleCanvas);
 
-    canvas.addEventListener("wheel", (e) => this.onWheel(e), false);
-    canvas.addEventListener("mouseup", (e) => this.onMouseUp(e), false);
-    canvas.addEventListener("click", (e) => this.onClickPixel(e), false);
-    canvas.addEventListener("mousedown", (e) => this.onMouseDown(e), false);
-    canvas.addEventListener("mousemove", (e) => this.onMouseMove(e), false);
+    canvas.addEventListener('wheel', (e) => this.onWheel(e), false);
+    canvas.addEventListener('mouseup', (e) => this.onMouseUp(e), false);
+    canvas.addEventListener('click', (e) => this.onClickPixel(e), false);
+    canvas.addEventListener('mousedown', (e) => this.onMouseDown(e), false);
+    canvas.addEventListener('mousemove', (e) => this.onMouseMove(e), false);
 
-    canvas.addEventListener(
-      "mouseleave",
-      (e) => this.setState({ isDragging: false }),
-      false
-    );
+    canvas.addEventListener('mouseleave', (e) => this.setState({ isDragging: false }), false);
   }
 
   getTransformedPoint(x, y) {
     const originalPoint = new DOMPoint(x, y);
-    return this.canvasContext
-      .getTransform()
-      .invertSelf()
-      .transformPoint(originalPoint);
+    return this.canvasContext.getTransform().invertSelf().transformPoint(originalPoint);
   }
 
   onWheel(event) {
     const zoom = event.deltaY < 0 ? 1.1 + zoomDelta : 0.9 - zoomDelta;
     const { canvasContext } = this;
 
-    const currentTransformedCursor = this.getTransformedPoint(
-      event.offsetX,
-      event.offsetY
-    );
+    const currentTransformedCursor = this.getTransformedPoint(event.offsetX, event.offsetY);
 
-    canvasContext.translate(
-      currentTransformedCursor.x,
-      currentTransformedCursor.y
-    );
+    canvasContext.translate(currentTransformedCursor.x, currentTransformedCursor.y);
     canvasContext.scale(zoom, zoom);
-    canvasContext.translate(
-      -currentTransformedCursor.x,
-      -currentTransformedCursor.y
-    );
+    canvasContext.translate(-currentTransformedCursor.x, -currentTransformedCursor.y);
 
     this.changeCanvas();
     event.preventDefault();
@@ -105,23 +89,17 @@ export default class Canvas extends React.Component {
     const { dragStartPosition, isDragging } = this.state;
     const { canvasContext } = this;
 
-    const currentTransformedCursor = this.getTransformedPoint(
-      event.offsetX,
-      event.offsetY
-    );
+    const currentTransformedCursor = this.getTransformedPoint(event.offsetX, event.offsetY);
 
     if (!isDragging) return;
 
     this.setState({
-      currentTransformedCursor: this.getTransformedPoint(
-        event.offsetX,
-        event.offsetY
-      ),
+      currentTransformedCursor: this.getTransformedPoint(event.offsetX, event.offsetY),
     });
 
     canvasContext.translate(
       currentTransformedCursor.x - dragStartPosition.x,
-      currentTransformedCursor.y - dragStartPosition.y
+      currentTransformedCursor.y - dragStartPosition.y,
     );
 
     this.changeCanvas();
@@ -183,12 +161,8 @@ export default class Canvas extends React.Component {
       const yDistanceToClickInPixelBlock =
         pixelBlock_Y < 0 ? yInCanvas + -pixelBlock_Y : yInCanvas - pixelBlock_Y;
 
-      const numberOfBlock_X = Math.floor(
-        xDistanceToClickInPixelBlock / pixelSize
-      );
-      const numberOfBlock_Y = Math.floor(
-        yDistanceToClickInPixelBlock / pixelSize
-      );
+      const numberOfBlock_X = Math.floor(xDistanceToClickInPixelBlock / pixelSize);
+      const numberOfBlock_Y = Math.floor(yDistanceToClickInPixelBlock / pixelSize);
 
       canvasContext.fillStyle = this.props.choosedColor;
       canvasContext.fillRect(numberOfBlock_X, numberOfBlock_Y, 1, 1);
@@ -201,13 +175,6 @@ export default class Canvas extends React.Component {
   }
 
   render() {
-    return (
-      <canvas
-        ref="canvas"
-        width={canvasWidth}
-        height={canvasHeight}
-        className="drawer"
-      />
-    );
+    return <canvas ref="canvas" width={canvasWidth} height={canvasHeight} className="drawer" />;
   }
 }

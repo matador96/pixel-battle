@@ -1,5 +1,5 @@
-import React from "react";
-import colors from "./../consts/colors";
+import React from 'react';
+import colors from './../consts/colors';
 
 const pixelWith = 0.99;
 const pixelHeight = 0.99;
@@ -47,34 +47,18 @@ export default class Canvas extends React.Component {
   componentDidMount() {
     this.generateRandomPixels();
 
-    this.refs.canvas.addEventListener(
-      "wheel",
-      (e) => this.zoomUsingCustomScale(e),
-      false
-    );
+    this.refs.canvas.addEventListener('wheel', (e) => this.zoomUsingCustomScale(e), false);
+
+    this.refs.canvas.addEventListener('mousedown', (e) => this.setState({ clicked: true }), false);
+
+    this.refs.canvas.addEventListener('mouseup', (e) => this.setState({ clicked: false }), false);
+
+    this.refs.canvas.addEventListener('mousemove', (e) => this.mouseMove(e), false);
 
     this.refs.canvas.addEventListener(
-      "mousedown",
-      (e) => this.setState({ clicked: true }),
-      false
-    );
-
-    this.refs.canvas.addEventListener(
-      "mouseup",
+      'mouseleave',
       (e) => this.setState({ clicked: false }),
-      false
-    );
-
-    this.refs.canvas.addEventListener(
-      "mousemove",
-      (e) => this.mouseMove(e),
-      false
-    );
-
-    this.refs.canvas.addEventListener(
-      "mouseleave",
-      (e) => this.setState({ clicked: false }),
-      false
+      false,
     );
 
     // this.refs.canvas.addEventListener("mouseup", (e) => this.mouseUp(e), false);
@@ -98,7 +82,7 @@ export default class Canvas extends React.Component {
         zoomedBlock: { x: blockNumberX, y: blockNumberY },
         position: { x: shiftX, y: shiftY },
       },
-      () => this.updateCanvas()
+      () => this.updateCanvas(),
     );
   }
 
@@ -117,7 +101,7 @@ export default class Canvas extends React.Component {
   updateCanvas() {
     //https://jsfiddle.net/akinuri/cbx7pmra/ Зум здесь
     const { canvas } = this.refs;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     const { elements } = this.state;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -195,7 +179,7 @@ export default class Canvas extends React.Component {
         zoomedBlock: { x: blockNumberX, y: blockNumberY },
         zoom: { ...this.state.zoom, scale },
       },
-      () => this.updateCanvas()
+      () => this.updateCanvas(),
     );
   }
 
@@ -278,7 +262,7 @@ export default class Canvas extends React.Component {
     const blockNumberX = Math.ceil(x / pixelWithInPixels) - 1; // Округление в большую сторону всегда, поэтому отнимает 1
     const blockNumberY = Math.ceil(y / pixelHeightInPixels) - 1;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
 
     ctx.fillStyle = this.props.choosedColor;
     ctx.fillRect(blockNumberX, blockNumberY, pixelWith, pixelHeight);
@@ -292,7 +276,7 @@ export default class Canvas extends React.Component {
   test() {
     const canvas = this.refs.canvas;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     ctx.beginPath();
     ctx.scale(20, 20);
   }
