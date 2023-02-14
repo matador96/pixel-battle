@@ -20,6 +20,7 @@ export default class Canvas extends React.Component {
       elements: new Map(),
     };
   }
+
   componentDidMount() {
     this.generateRandomPixels();
     this.canvas = this.refs.canvas;
@@ -170,7 +171,7 @@ export default class Canvas extends React.Component {
   }
 
   randomColor() {
-    let key = Math.floor(Math.random() * Math.floor(20));
+    const key = Math.floor(Math.random() * Math.floor(20));
     return colors[key].hex;
   }
 
