@@ -1,9 +1,8 @@
-import React from "react";
-import "./style.css";
-import colors from "./consts/colors";
-import users from "./consts/users";
-import Canvas from "./components/Canvas";
-import StyledReactPanZoom from "@ajainarayanan/react-pan-zoom";
+import React from 'react'
+import './style.css'
+import colors from './consts/colors'
+import Canvas from './components/Canvas'
+import { Button } from '@chakra-ui/react'
 
 // const width = 800;
 // const height = 500;
@@ -23,14 +22,14 @@ import StyledReactPanZoom from "@ajainarayanan/react-pan-zoom";
 // };
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     // Не вызывайте здесь this.setState()!
     // dx: 0, dy: 0, zoom: 1,
-    this.state = { color: "#fff" };
+    this.state = { color: '#fff' }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     // window.addEventListener(
     //   "wheel",
     //   (event) => {
@@ -77,17 +76,18 @@ export default class App extends React.Component {
   // };
 
   changeColor = (color) => {
-    console.log(color);
+    console.log(color)
     this.setState({
-      color: color,
-    });
-  };
+      color
+    })
+  }
 
-  render() {
+  render () {
     // const { zoom, dx, onPan, dy } = this.state;
 
     return (
       <div className="App">
+        <Button>I just consumed some ⚡️Chakra!</Button>
         <header></header>
         <div className="header-block">
           <div className="colors-block">
@@ -147,6 +147,6 @@ export default class App extends React.Component {
           {/* </StyledReactPanZoom> */}
         </div>
       </div>
-    );
+    )
   }
 }

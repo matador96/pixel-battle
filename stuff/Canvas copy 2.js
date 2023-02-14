@@ -1,5 +1,5 @@
-import React from "react";
-import colors from "./../consts/colors";
+import React from 'react';
+import colors from './../consts/colors';
 
 const pixelWith = 1;
 const pixelHeight = 1;
@@ -49,28 +49,16 @@ export default class Canvas extends React.Component {
     //   false
     // );
 
-    this.refs.canvas.addEventListener(
-      "mousedown",
-      (e) => this.setState({ clicked: true }),
-      false
-    );
+    this.refs.canvas.addEventListener('mousedown', (e) => this.setState({ clicked: true }), false);
+
+    this.refs.canvas.addEventListener('mouseup', (e) => this.setState({ clicked: false }), false);
+
+    this.refs.canvas.addEventListener('mousemove', (e) => this.mouseMove(e), false);
 
     this.refs.canvas.addEventListener(
-      "mouseup",
+      'mouseleave',
       (e) => this.setState({ clicked: false }),
-      false
-    );
-
-    this.refs.canvas.addEventListener(
-      "mousemove",
-      (e) => this.mouseMove(e),
-      false
-    );
-
-    this.refs.canvas.addEventListener(
-      "mouseleave",
-      (e) => this.setState({ clicked: false }),
-      false
+      false,
     );
   }
 
@@ -101,7 +89,7 @@ export default class Canvas extends React.Component {
         mouseHoverInOnePixel: { x: differenceXMod, y: differenceYMod },
         zoomedBlock: { x: blockNumberX, y: blockNumberY },
       },
-      () => this.updateCanvas()
+      () => this.updateCanvas(),
     );
   }
 
@@ -120,7 +108,7 @@ export default class Canvas extends React.Component {
   updateCanvas() {
     //https://jsfiddle.net/akinuri/cbx7pmra/ Зум здесь
     const { canvas } = this.refs;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     const { elements } = this.state;
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -213,15 +201,10 @@ export default class Canvas extends React.Component {
     const blockNumberY = Math.ceil(y / pixelSize) - 1;
 
     console.log(blockNumberX, blockNumberY);
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
 
     ctx.fillStyle = this.props.choosedColor;
-    ctx.fillRect(
-      blockNumberX,
-      blockNumberY,
-      this.state.pixelWith,
-      this.state.pixelHeight
-    );
+    ctx.fillRect(blockNumberX, blockNumberY, this.state.pixelWith, this.state.pixelHeight);
   }
 
   randomColor() {
