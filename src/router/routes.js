@@ -27,7 +27,7 @@ const routes = [
     path: '/profile',
     layout: <Layout />,
     component: <Profile/>,
-    title: 'Профиль',
+    title: 'Profile',
     exact: true
   },
   {
@@ -41,7 +41,7 @@ const routes = [
     path: '/stats',
     layout: <Layout />,
     component: <Stats/>,
-    title: 'Статистика',
+    title: 'Stats',
     exact: true
   },
   {

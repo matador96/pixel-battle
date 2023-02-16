@@ -6,17 +6,17 @@ import MenuItem from './MenuItem';
 
 const MenuList = [
   {
-    label: 'Главная',
+    label: 'Home',
     icon: <RxHome />,
     path: '/',
   },
   {
-    label: 'Игра',
+    label: 'Game',
     icon: <RxPlay />,
     path: '/game',
   },
   {
-    label: 'Профиль',
+    label: 'Profile',
     icon: <RxPerson />,
     path: '/profile',
   },
@@ -26,7 +26,7 @@ const MenuList = [
     path: '/chat',
   },
   {
-    label: 'Статистика',
+    label: 'Stats',
     icon: <RxPieChart />,
     path: '/stats',
   },

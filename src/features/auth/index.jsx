@@ -7,48 +7,91 @@ import {
   FormLabel,
   FormHelperText,
   Container,
+  InputLeftAddon,
+  Stack,
+  TabList,
+  Tab,
+  Tabs,
+  TabPanel,
+  TabPanels,
+  Card,
+  CardBody,
 } from '@chakra-ui/react';
 import BeatLoader from 'react-spinners/BeatLoader';
 
-const PasswordInput = () => {
-  const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
-
+const LoginInputs = () => {
   return (
-    <InputGroup size="md">
-      <Input pr="4.5rem" type={show ? 'text' : 'password'} placeholder="Enter password" />
-      <InputRightElement width="4.5rem">
-        <Button h="1.75rem" size="sm" onClick={handleClick}>
-          {show ? 'Hide' : 'Show'}
-        </Button>
-      </InputRightElement>
-    </InputGroup>
+    <>
+      <Stack spacing={3}>
+        <FormControl isRequired>
+          <FormLabel>Login</FormLabel>
+          <Input type="name" variant="filled" />
+        </FormControl>
+        <FormControl isRequired>
+          <FormLabel>Password</FormLabel>
+          <Input type="password" variant="filled" />
+        </FormControl>
+      </Stack>
+    </>
   );
 };
 
-const EmailInput = () => {
-  const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
-
+const RegistrationInputs = () => {
   return (
-    <FormControl>
-      <FormLabel>Email address</FormLabel>
-      <Input type="email" />
-      <FormHelperText>We'll never share your email.</FormHelperText>
-    </FormControl>
+    <>
+      <Stack spacing={3}>
+        <FormControl isRequired>
+          <FormLabel>Login</FormLabel>
+          <Input type="name" variant="filled" />
+        </FormControl>
+        <FormControl isRequired>
+          <FormLabel>Password</FormLabel>
+          <Input type="password" variant="filled" />
+        </FormControl>
+      </Stack>
+    </>
   );
 };
 
 const Auth = () => {
   return (
     <>
-      <Container maxW="400px" style={{ marginLeft: '0' }}>
-        <PasswordInput />
-        <EmailInput />
+      <Container maxW="400px" style={{ marginLeft: '0', paddingLeft: 0 }}>
+        <Card>
+          <CardBody>
+            <Tabs variant="soft-rounded" colorScheme="green">
+              <TabList>
+                <Tab>Login</Tab>
+                <Tab>Registration</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <LoginInputs />
+                  <Button
+                    mt={4}
+                    isLoading
+                    colorScheme="blue"
+                    spinner={<BeatLoader size={8} color="white" />}
+                  >
+                    Login
+                  </Button>
+                </TabPanel>
+                <TabPanel>
+                  <RegistrationInputs />
 
-        <Button isLoading colorScheme="blue" spinner={<BeatLoader size={8} color="white" />}>
-          Click me
-        </Button>
+                  <Button
+                    mt={4}
+                    isLoading
+                    colorScheme="green"
+                    spinner={<BeatLoader size={8} color="white" />}
+                  >
+                    Registration
+                  </Button>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </CardBody>
+        </Card>
       </Container>
     </>
   );

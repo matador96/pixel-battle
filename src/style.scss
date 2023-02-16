@@ -184,13 +184,6 @@ iframe {
   letter-spacing: 1px;
 }
 
-.subtitle {
-  font-size: 20px;
-  color: #000;
-  letter-spacing: 1px;
-  font-weight: 100;
-}
-
 .footer {
   text-align: right;
   width: 100%;
@@ -203,10 +196,8 @@ iframe {
 
 .content {
   height: calc(100vh - 210px);
-  border: 1px #cecece88 solid;
   border-radius: 20px;
   margin-top: 20px;
-  padding: 40px;
   font-size: 18px;
   font-weight: 300;
 }

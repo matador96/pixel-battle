@@ -1,9 +1,9 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import Footer from './/Footer.tsx';
 import Menu from './components/Menu';
 import Logo from './components/Menu/Logo.tsx';
-import { animated, useSpring, useSprings } from '@react-spring/web';
+import { animated, useSpring } from '@react-spring/web';
 
 const Layout = ({ children }) => <div className="layout">{children}</div>;
 
@@ -19,14 +19,10 @@ const Title = (props) => {
   const [title, setTile] = useState('');
   const location = useLocation();
 
-  const { props: animationStyle } = useSpring(
-    () => ({
-      from: { opacity: 0, transform: 'translate(-90px, 0)' },
-      to: { opacity: 1, transform: 'translate(0px, 0)' },
-      reset: title,
-    }),
-    [],
-  );
+  const [transitions] = useSpring(() => ({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+  }));
 
   useEffect(() => {
     const currentTitle = props.children.props.children.find(
@@ -36,13 +32,11 @@ const Title = (props) => {
   }, [location]);
 
   return (
-    <animated.div className="title" style={animationStyle}>
+    <animated.div className="title" style={transitions} key={title}>
       {title}
     </animated.div>
   );
 };
-
-const SubTitle = () => <div className="subtitle">Subtitle head</div>;
 
 const Content = ({ children }) => <div className="content">{children}</div>;
 
@@ -57,7 +51,7 @@ const LayoutComponent = (props) => {
         <Container>
           <Header />
           <Title {...props} />
-          <SubTitle />
+
           <Content>{props.children}</Content>
           <Footer />
         </Container>
