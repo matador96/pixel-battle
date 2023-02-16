@@ -1,7 +1,8 @@
-import React from 'react';
-import { SiDelicious } from 'react-icons/si';
-import { RxExit, RxHome, RxPerson, RxPieChart, RxChatBubble, RxPlay } from 'react-icons/rx';
+import React, { useEffect, useCallback, useState } from 'react';
+import { useLocation } from 'react-router';
 import Footer from './/Footer.tsx';
+import Menu from './components/Menu';
+import Logo from './components/Menu/Logo.tsx';
 import { animated, useSpring, useSprings } from '@react-spring/web';
 
 const Layout = ({ children }) => <div className="layout">{children}</div>;
@@ -12,63 +13,35 @@ const Container = ({ children }) => <div className="container">{children}</div>;
 
 const Main = ({ children }) => <div className="main">{children}</div>;
 
-const Logo = () => {
-  const [props, api] = useSpring(
-    () => ({
-      from: { opacity: 0, transform: 'scale(0)' },
-      to: { opacity: 1, transform: 'scale(1)' },
-    }),
-    [],
-  );
+const Header = () => <div className="header"></div>;
 
-  return (
-    <animated.div style={props} className="logo">
-      <SiDelicious />
-    </animated.div>
-  );
-};
+const Title = (props) => {
+  const [title, setTile] = useState('');
+  const location = useLocation();
 
-const Menu = () => {
-  const [props, api] = useSpring(
+  const { props: animationStyle } = useSpring(
     () => ({
       from: { opacity: 0, transform: 'translate(-90px, 0)' },
       to: { opacity: 1, transform: 'translate(0px, 0)' },
+      reset: title,
     }),
     [],
   );
 
+  useEffect(() => {
+    const currentTitle = props.children.props.children.find(
+      (item) => item.props.path === location.pathname,
+    )?.props?.title;
+    setTile(currentTitle);
+  }, [location]);
+
   return (
-    <animated.div style={props} className="menu">
-      <div className="menu-item">
-        <RxHome />
-      </div>
-
-      <div className="menu-item">
-        <RxPlay />
-      </div>
-
-      <div className="menu-item">
-        <RxPerson />
-      </div>
-
-      <div className="menu-item">
-        <RxChatBubble />
-      </div>
-
-      <div className="menu-item">
-        <RxPieChart />
-      </div>
-
-      <div className="menu-item exit">
-        <RxExit />
-      </div>
+    <animated.div className="title" style={animationStyle}>
+      {title}
     </animated.div>
   );
 };
 
-const Header = () => <div className="header"></div>;
-
-const Title = () => <div className="title">Head to head</div>;
 const SubTitle = () => <div className="subtitle">Subtitle head</div>;
 
 const Content = ({ children }) => <div className="content">{children}</div>;
@@ -83,7 +56,7 @@ const LayoutComponent = (props) => {
       <Main>
         <Container>
           <Header />
-          <Title />
+          <Title {...props} />
           <SubTitle />
           <Content>{props.children}</Content>
           <Footer />

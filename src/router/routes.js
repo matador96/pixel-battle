@@ -1,53 +1,53 @@
 import Layout from '../Layout'
-import Auth from './../features/auth/index'
+import {
+  Game,
+  Chat,
+  Login,
+  Profile,
+  Stats,
+  Main
+} from './../pages'
 
 const routes = [
   {
     path: '/',
     layout: <Layout />,
-    component: <div>asfasfasf</div>,
+    component: <Main/>,
     title: 'Главная',
     exact: true
   },
   {
     path: '/game',
     layout: <Layout />,
-    component: <div>345235</div>,
+    component: <Game/>,
     title: 'Pixel Battle',
     exact: true
   },
   {
     path: '/profile',
     layout: <Layout />,
-    component: <div>345235</div>,
+    component: <Profile/>,
     title: 'Профиль',
     exact: true
   },
   {
     path: '/chat',
     layout: <Layout />,
-    component: <div>345235</div>,
+    component: <Chat/>,
     title: 'Чат',
     exact: true
   },
   {
     path: '/stats',
     layout: <Layout />,
-    component: <div>345235</div>,
+    component: <Stats/>,
     title: 'Статистика',
-    exact: true
-  },
-  {
-    path: '/logout',
-    layout: <Layout />,
-    component: <div>345235</div>,
-    title: 'Выход',
     exact: true
   },
   {
     path: '/login',
     layout: <Layout />,
-    component: <Auth/>,
+    component: <Login/>,
     title: 'Войти',
     exact: true
   }
