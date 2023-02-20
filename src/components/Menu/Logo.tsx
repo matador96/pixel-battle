@@ -1,6 +1,7 @@
 import React from 'react';
 import { SiDelicious } from 'react-icons/si';
 import { animated, useSpring, useSprings } from '@react-spring/web';
+import { useNavigate } from 'react-router';
 
 const Logo = () => {
   const [props, api] = useSpring(
@@ -11,8 +12,10 @@ const Logo = () => {
     [],
   );
 
+  const navigate = useNavigate();
+
   return (
-    <animated.div style={props} className="logo">
+    <animated.div style={props} className="logo" onClick={() => navigate('/')}>
       <SiDelicious />
     </animated.div>
   );

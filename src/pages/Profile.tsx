@@ -1,10 +1,13 @@
 import React from 'react';
 import Login from './../features/auth';
+import { LayoutOfContainer } from './../Layout';
 
 const Profile = () => (
-  <div className="profile">
-    <Login />
-  </div>
+  <LayoutOfContainer>
+    <div className="profile">
+      <Login />
+    </div>
+  </LayoutOfContainer>
 );
 
 export default Profile;

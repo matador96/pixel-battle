@@ -24,12 +24,12 @@ const Title = (props) => {
     to: { opacity: 1 },
   }));
 
-  useEffect(() => {
-    const currentTitle = props.children.props.children.find(
-      (item) => item.props.path === location.pathname,
-    )?.props?.title;
-    setTile(currentTitle);
-  }, [location]);
+  // useEffect(() => {
+  //   const currentTitle = props.children.props.children.find(
+  //     (item) => item.props.path === location.pathname,
+  //   )?.props?.title;
+  //   setTile(currentTitle);
+  // }, [location]);
 
   return (
     <animated.div className="title" style={transitions} key={title}>
@@ -40,24 +40,29 @@ const Title = (props) => {
 
 const Content = ({ children }) => <div className="content">{children}</div>;
 
-const LayoutComponent = (props) => {
+const LayoutOfApp = (props) => {
   return (
     <Layout>
       <LeftSidebar>
         <Logo />
         <Menu />
       </LeftSidebar>
-      <Main>
-        <Container>
-          <Header />
-          <Title {...props} />
-
-          <Content>{props.children}</Content>
-          <Footer />
-        </Container>
-      </Main>
+      {props.children}
     </Layout>
   );
 };
 
-export default LayoutComponent;
+const LayoutOfContainer = (props) => {
+  return (
+    <Main>
+      <Container>
+        <Header />
+        <Title {...props} />
+        <Content>{props.children}</Content>
+        <Footer />
+      </Container>
+    </Main>
+  );
+};
+
+export { LayoutOfApp, LayoutOfContainer };

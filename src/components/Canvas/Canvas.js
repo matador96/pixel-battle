@@ -3,8 +3,6 @@ import colors from './../../consts/colors'
 
 const width = 200 // Elements in row
 const height = 100 // Elements in cell
-const canvasHeight = 700
-const canvasWidth = 1600
 
 const zoomDelta = 0.2
 const defaultScaleCanvas = 10 // в то же время это размер пикселя в пикселях
@@ -27,11 +25,7 @@ export default class Canvas extends React.Component {
     this.canvasContext = this.canvas.getContext('2d')
 
     const { canvas, canvasContext } = this
-
-    canvasContext.translate(
-      canvasWidth / 2 - (width * defaultScaleCanvas) / 2,
-      canvasHeight / 2 - (height * defaultScaleCanvas) / 2
-    )
+    this.setActualHeightAndWidthForCanvas()
     canvasContext.scale(defaultScaleCanvas, defaultScaleCanvas)
 
     canvas.addEventListener('wheel', (e) => this.onWheel(e), false)
@@ -41,6 +35,22 @@ export default class Canvas extends React.Component {
     canvas.addEventListener('mousemove', (e) => this.onMouseMove(e), false)
 
     canvas.addEventListener('mouseleave', (e) => this.setState({ isDragging: false }), false)
+  }
+
+  setActualHeightAndWidthForCanvas () {
+    const gameBlock = document.querySelector('.game')
+    const { canvas, canvasContext } = this
+
+    canvas.height = gameBlock.clientHeight
+    canvas.width = gameBlock.clientWidth
+
+    const canvasWidth = gameBlock.clientWidth
+    const canvasHeight = gameBlock.clientHeight
+
+    canvasContext.translate(
+      canvasWidth / 2 - (width * defaultScaleCanvas) / 2,
+      canvasHeight / 2 - (height * defaultScaleCanvas) / 2
+    )
   }
 
   getTransformedPoint (x, y) {
@@ -176,6 +186,6 @@ export default class Canvas extends React.Component {
   }
 
   render () {
-    return <canvas ref="canvas" width={canvasWidth} height={canvasHeight} className="drawer" />
+    return <canvas ref="canvas" width={'100%'} height={'100vh'} className="drawer" />
   }
 }

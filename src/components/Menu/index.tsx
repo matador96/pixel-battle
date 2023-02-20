@@ -6,11 +6,6 @@ import MenuItem from './MenuItem';
 
 const MenuList = [
   {
-    label: 'Home',
-    icon: <RxHome />,
-    path: '/',
-  },
-  {
     label: 'Game',
     icon: <RxPlay />,
     path: '/game',
@@ -19,11 +14,6 @@ const MenuList = [
     label: 'Profile',
     icon: <RxPerson />,
     path: '/profile',
-  },
-  {
-    label: 'Чат',
-    icon: <RxChatBubble />,
-    path: '/chat',
   },
   {
     label: 'Stats',

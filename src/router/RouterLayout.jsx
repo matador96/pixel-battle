@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Layout from './../Layout';
 import map from 'lodash/map';
 import routes from './routes';
+import { LayoutOfApp } from './../Layout';
 
 const RouterLayout = () => (
   <BrowserRouter>
-    <Layout>
+    <LayoutOfApp>
       <Routes>
         {map(routes, (route, index) => (
           <Route
@@ -16,10 +16,11 @@ const RouterLayout = () => (
             breadcrumb={route.path}
             element={route.component}
             title={route.title}
+            layout={route.layout}
           />
         ))}
       </Routes>
-    </Layout>
+    </LayoutOfApp>
   </BrowserRouter>
 );
 
