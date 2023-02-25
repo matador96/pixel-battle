@@ -19,11 +19,10 @@ iframe {
 }
 
 .game-settings {
-  position: absolute;
-  top: 30%;
+  top: 50%;
   left: 0%;
-  transform: translate(10%, -50%);
-  width: 200px;
+  transform: translate(20%, -50%);
+  width: 100px;
 }
 
 .game-online {
@@ -44,7 +43,7 @@ iframe {
   min-width: 100px;
   color: #fff;
   border-radius: 6px;
-  background: #1e1e1e;
+  background: #1e1e1ee3;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 
   .chakra-card {
@@ -85,9 +84,10 @@ iframe {
   cursor: pointer;
   width: 32px;
   height: 32px;
-  margin: 0 5px 5px 0;
+  margin: 2px 2px;
   position: relative;
-  border: 1px grey solid;
+  border: 1px #6a6363 solid;
+  border-radius: 6px;
 }
 .canvas-block {
   height: 500px;
@@ -217,10 +217,20 @@ iframe {
 }
 
 .menu-item {
-  color: #fff;
+  border-radius: 5px;
+  color: #ffffff94;
   font-size: 40px;
-  padding: 20px;
-  margin: 10px 0;
+  padding: 8px;
+  margin: 20px 0;
+  background: transparent;
+  border: 1px transparent solid;
+  transition: 0.3s all;
+
+  &.active {
+    background: #00000054;
+    border: 1px #a5a5a54f solid;
+    color: #fff;
+  }
 }
 
 .menu-item.exit {
@@ -233,6 +243,10 @@ iframe {
   font-weight: 900;
   line-height: 1;
   letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+#black-gamecard-value {
 }
 
 .footer {

@@ -4,9 +4,10 @@ import colors from './../../consts/colors'
 const width = 200 // Elements in row
 const height = 100 // Elements in cell
 
-const zoomDelta = 0.2
 const defaultScaleCanvas = 10 // в то же время это размер пикселя в пикселях
 
+const ZOOM_MAX = 40
+const ZOOM_MIN = 5
 export default class Canvas extends React.Component {
   constructor (props) {
     super(props)
@@ -33,7 +34,6 @@ export default class Canvas extends React.Component {
     canvas.addEventListener('click', (e) => this.onClickPixel(e), false)
     canvas.addEventListener('mousedown', (e) => this.onMouseDown(e), false)
     canvas.addEventListener('mousemove', (e) => this.onMouseMove(e), false)
-
     canvas.addEventListener('mouseleave', (e) => this.setState({ isDragging: false }), false)
   }
 
@@ -59,17 +59,38 @@ export default class Canvas extends React.Component {
   }
 
   onWheel (event) {
-    const zoom = event.deltaY < 0 ? 1.1 + zoomDelta : 0.9 - zoomDelta
+    const zoom = event.deltaY < 0 ? 2 : 0.5
     const { canvasContext } = this
 
-    const currentTransformedCursor = this.getTransformedPoint(event.offsetX, event.offsetY)
+    const currentScale = this.decomposeMatrix(canvasContext.getTransform()).scaleX
+    const nextScale = currentScale * zoom
 
+    if (nextScale > ZOOM_MAX || nextScale < ZOOM_MIN) return
+
+    const currentTransformedCursor = this.getTransformedPoint(event.offsetX, event.offsetY)
     canvasContext.translate(currentTransformedCursor.x, currentTransformedCursor.y)
     canvasContext.scale(zoom, zoom)
     canvasContext.translate(-currentTransformedCursor.x, -currentTransformedCursor.y)
 
     this.changeCanvas()
     event.preventDefault()
+  }
+
+  zoom (zoomIn = true) {
+    const zoom = zoomIn < 0 ? 2 : 0.5
+    const { canvasContext } = this
+    const { currentTransformedCursor } = this.state
+
+    const currentScale = this.decomposeMatrix(canvasContext.getTransform()).scaleX
+    const nextScale = currentScale * zoom
+
+    if (nextScale > ZOOM_MAX || nextScale < ZOOM_MIN) return
+
+    canvasContext.translate(currentTransformedCursor.x, currentTransformedCursor.y)
+    canvasContext.scale(zoom, zoom)
+    canvasContext.translate(-currentTransformedCursor.x, -currentTransformedCursor.y)
+
+    this.changeCanvas()
   }
 
   onMouseUp () {
@@ -96,11 +117,35 @@ export default class Canvas extends React.Component {
     })
   }
 
+  decomposeMatrix (m) {
+    const E = (m.a + m.d) / 2
+    const F = (m.a - m.d) / 2
+    const G = (m.c + m.b) / 2
+    const H = (m.c - m.b) / 2
+
+    const Q = Math.sqrt(E * E + H * H)
+    const R = Math.sqrt(F * F + G * G)
+    const a1 = Math.atan2(G, F)
+    const a2 = Math.atan2(H, E)
+    const theta = (a2 - a1) / 2
+    const phi = (a2 + a1) / 2
+
+    return {
+      translateX: m.e,
+      translateY: m.f,
+      rotate: -phi * 180 / Math.PI,
+      scaleX: Q + R,
+      scaleY: Q - R,
+      skew: -theta * 180 / Math.PI
+    }
+  }
+
   onMouseMove (event) {
     const { dragStartPosition, isDragging } = this.state
     const { canvasContext } = this
 
     const currentTransformedCursor = this.getTransformedPoint(event.offsetX, event.offsetY)
+    this.updateCoordinatesOnBlock(event)
 
     if (!isDragging) return
 
@@ -140,10 +185,13 @@ export default class Canvas extends React.Component {
     }
   }
 
-  onClickPixel (e) {
-    const { isDragging } = this.state
-    if (isDragging) return
+  updateCoordinatesOnBlock (e) {
+    const { numberOfBlock_X, numberOfBlock_Y } = this.getHoveredNumberOfBlocks(e)
+    if (!numberOfBlock_X || !numberOfBlock_Y) return
+    document.querySelector('#black-gamecard-value').innerHTML = `${numberOfBlock_X}, ${numberOfBlock_Y}`
+  }
 
+  getHoveredNumberOfBlocks (e) {
     const { canvas, canvasContext } = this
 
     const rect = canvas.getBoundingClientRect()
@@ -160,6 +208,9 @@ export default class Canvas extends React.Component {
     const startOfPixelBlock_Y = pixelBlock_Y
     const endOfPixelBlock_Y = startOfPixelBlock_Y + height * pixelSize
 
+    let numberOfBlock_X = ''
+    let numberOfBlock_Y = ''
+
     if (
       xInCanvas >= startOfPixelBlock_X &&
       xInCanvas <= endOfPixelBlock_X &&
@@ -172,12 +223,22 @@ export default class Canvas extends React.Component {
       const yDistanceToClickInPixelBlock =
         pixelBlock_Y < 0 ? yInCanvas + -pixelBlock_Y : yInCanvas - pixelBlock_Y
 
-      const numberOfBlock_X = Math.floor(xDistanceToClickInPixelBlock / pixelSize)
-      const numberOfBlock_Y = Math.floor(yDistanceToClickInPixelBlock / pixelSize)
-
-      canvasContext.fillStyle = this.props.choosedColor
-      canvasContext.fillRect(numberOfBlock_X, numberOfBlock_Y, 1, 1)
+      numberOfBlock_X = Math.floor(xDistanceToClickInPixelBlock / pixelSize)
+      numberOfBlock_Y = Math.floor(yDistanceToClickInPixelBlock / pixelSize)
     }
+
+    return { numberOfBlock_X, numberOfBlock_Y }
+  }
+
+  onClickPixel (e) {
+    const { isDragging } = this.state
+    if (isDragging) return
+
+    const { numberOfBlock_X, numberOfBlock_Y } = this.getHoveredNumberOfBlocks(e)
+    const { canvasContext } = this
+
+    canvasContext.fillStyle = this.props.choosedColor
+    canvasContext.fillRect(numberOfBlock_X, numberOfBlock_Y, 1, 1)
   }
 
   randomColor () {

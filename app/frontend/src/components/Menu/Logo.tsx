@@ -15,7 +15,7 @@ const Logo = () => {
   const navigate = useNavigate();
 
   return (
-    <animated.div style={props} className="logo" onClick={() => navigate('/')}>
+    <animated.div style={props} className="logo" onClick={() => navigate('/game')}>
       <SiDelicious />
     </animated.div>
   );

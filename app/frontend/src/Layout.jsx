@@ -16,29 +16,30 @@ const Main = ({ children }) => <div className="main">{children}</div>;
 const Header = () => <div className="header"></div>;
 
 const Title = (props) => {
-  const [title, setTile] = useState('');
-  const location = useLocation();
-
   const [transitions] = useSpring(() => ({
     from: { opacity: 0 },
     to: { opacity: 1 },
   }));
 
-  // useEffect(() => {
-  //   const currentTitle = props.children.props.children.find(
-  //     (item) => item.props.path === location.pathname,
-  //   )?.props?.title;
-  //   setTile(currentTitle);
-  // }, [location]);
-
   return (
-    <animated.div className="title" style={transitions} key={title}>
-      {title}
+    <animated.div className="title" style={transitions}>
+      {props.children}
     </animated.div>
   );
 };
 
-const Content = ({ children }) => <div className="content">{children}</div>;
+const Content = ({ children }) => {
+  const [transitions] = useSpring(() => ({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+  }));
+
+  return (
+    <animated.div style={transitions}>
+      <div className="content">{children}</div>
+    </animated.div>
+  );
+};
 
 const LayoutOfApp = (props) => {
   return (
@@ -57,7 +58,6 @@ const LayoutOfContainer = (props) => {
     <Main>
       <Container>
         <Header />
-        <Title {...props} />
         <Content>{props.children}</Content>
         <Footer />
       </Container>
@@ -65,4 +65,4 @@ const LayoutOfContainer = (props) => {
   );
 };
 
-export { LayoutOfApp, LayoutOfContainer };
+export { LayoutOfApp, LayoutOfContainer, Title, Content };

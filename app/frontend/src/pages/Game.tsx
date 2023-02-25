@@ -34,7 +34,7 @@ const GameCoordinates = () => (
   <div className="game-coordinates">
     <Card className="black-gamecard">
       <CardBody>
-        <Text>1000, 3000</Text>
+        <Text id="black-gamecard-value">1000, 3000</Text>
       </CardBody>
     </Card>
   </div>
@@ -65,7 +65,6 @@ const GameSettings = () => (
       <CardBody>
         <Text>
           <div className="colors-block">
-            <label>Пиксели</label>
             <div className="colors-list">
               {colors.map((color) => (
                 <div id={color.hex} data-color={color.hex} style={{ backgroundColor: color.rgb }} />
