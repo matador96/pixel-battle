@@ -5,7 +5,7 @@ const config = {
   development: {
     database: {
       username: "root",
-      password: "root",
+      password: "",
       database: "pixelbattle",
       host: "localhost",
       db_port: "3306",

@@ -18,3 +18,5 @@ routes(app);
 const server = app.listen(config.port, () =>
   console.log(`Listening on port ${config.port}`)
 );
+
+require("./socket")(server);

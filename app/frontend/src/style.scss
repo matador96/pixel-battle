@@ -168,29 +168,10 @@ iframe {
   display: flex;
 }
 
-.sidebar-left {
-  background: #1e1e1e;
-  height: 100%;
-  width: 120px;
-  display: flex;
-  padding: 45px 0 0 0;
-  flex-direction: column;
-  align-items: center;
-  border-right: 1px #ffffff1f solid;
-}
-
 .main {
   background: #eeecec;
   width: 100%;
   padding: 45px 50px 30px 70px;
-}
-
-.menu {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  height: 100%;
 }
 
 .logo {
@@ -216,37 +197,12 @@ iframe {
   position: relative;
 }
 
-.menu-item {
-  border-radius: 5px;
-  color: #ffffff94;
-  font-size: 40px;
-  padding: 8px;
-  margin: 20px 0;
-  background: transparent;
-  border: 1px transparent solid;
-  transition: 0.3s all;
-
-  &.active {
-    background: #00000054;
-    border: 1px #a5a5a54f solid;
-    color: #fff;
-  }
-}
-
-.menu-item.exit {
-  position: absolute;
-  bottom: 10px;
-}
-
 .title {
   font-size: 60px;
   font-weight: 900;
   line-height: 1;
   letter-spacing: 1px;
   margin-bottom: 20px;
-}
-
-#black-gamecard-value {
 }
 
 .footer {

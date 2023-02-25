@@ -1,5 +1,5 @@
 import React from 'react';
-import Canvas from './../components/Canvas/Canvas';
+import Canvas from './components/Canvas/Canvas';
 import {
   Card,
   CardHeader,
@@ -11,7 +11,7 @@ import {
   IconButton,
   ButtonGroup,
 } from '@chakra-ui/react';
-import colors from './../consts/colors';
+import colors from './consts/colors';
 import {
   RangeSlider,
   RangeSliderTrack,
@@ -19,12 +19,15 @@ import {
   RangeSliderThumb,
 } from '@chakra-ui/react';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
+import UserConnect from './socket/connect';
 
 const GameOnline = () => (
   <div className="game-online">
     <Card>
       <CardBody>
-        <Text>Онлайн 300 человек</Text>
+        <Text>
+          Онлайн <UserConnect /> человек
+        </Text>
       </CardBody>
     </Card>
   </div>
@@ -82,7 +85,6 @@ const Game = () => (
     <GameSettings />
     <GameOnline />
     <GameCoordinates />
-    <GameZoom />
     <Canvas />
   </div>
 );
