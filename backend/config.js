@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const config = {
   development: {
-    port: "3040",
+    port: "3045",
   },
   production: {
     port: process.env.SERVER_PORT,
