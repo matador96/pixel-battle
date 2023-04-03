@@ -1,5 +1,5 @@
-import React from 'react';
-import Canvas from './components/Canvas/Canvas';
+import React, { useState } from 'react';
+import Canvas from './components/Canvas';
 import {
   Card,
   CardHeader,
@@ -62,31 +62,51 @@ const GameZoom = () => (
   </div>
 );
 
-const GameSettings = () => (
-  <div className="game-settings">
-    <Card>
-      <CardBody>
-        <Text>
-          <div className="colors-block">
-            <div className="colors-list">
-              {colors.map((color) => (
-                <div id={color.hex} data-color={color.hex} style={{ backgroundColor: color.rgb }} />
-              ))}
-            </div>
-          </div>
-        </Text>
-      </CardBody>
-    </Card>
-  </div>
-);
+interface GameSettings {
+  choosedColor: string;
+  onChangeColor: any;
+}
 
-const Game = () => (
-  <div className="game">
-    <GameSettings />
-    <GameOnline />
-    <GameCoordinates />
-    <Canvas />
-  </div>
-);
+const GameSettings = (props: GameSettings) => {
+  const { choosedColor, onChangeColor } = props;
+  return (
+    <div className="game-settings">
+      <Card>
+        <CardBody>
+          <Text>
+            <div className="colors-block">
+              <div className="colors-list">
+                {colors.map((color) => (
+                  <div
+                    onClick={() => onChangeColor(color.hex)}
+                    id={color.hex}
+                    data-color={color.hex}
+                    style={{
+                      backgroundColor: color.rgb,
+                      opacity: choosedColor === color.hex ? 0.2 : 1,
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          </Text>
+        </CardBody>
+      </Card>
+    </div>
+  );
+};
+
+const Game = () => {
+  const [choosedColor, setColor] = useState('#5CBF0D');
+
+  return (
+    <div className="game">
+      <GameSettings choosedColor={choosedColor} onChangeColor={setColor} />
+      <GameOnline />
+      <GameCoordinates />
+      <Canvas choosedColor={choosedColor} />
+    </div>
+  );
+};
 
 export default Game;

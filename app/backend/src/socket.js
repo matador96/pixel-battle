@@ -1,5 +1,6 @@
+const Controller = require("./controller");
+
 module.exports = function (server) {
-  console.log("okkk");
   const io = require("socket.io")(server, {
     cors: {
       // origin: "https://127.0.0.1:3003",
@@ -12,13 +13,23 @@ module.exports = function (server) {
 
   io.on("connection", (socket) => {
     const { id } = socket.client;
-    // , [socket.client.id, socket.id]
     usersConnected.add(id);
     io.emit("users-online", usersConnected.size);
 
     socket.on("disconnect", () => {
       usersConnected.delete(id);
       io.emit("users-online", usersConnected.size);
+    });
+
+    socket.on("try connect pixelgame", () => {
+      io.emit("connect pixelgame", Controller.getPixels());
+    });
+
+    socket.on("try patch pixelgame", (newPixel) => {
+      io.emit(
+        "patch pixelgame",
+        Controller.updatePixel(newPixel.x, newPixel.y, newPixel.color)
+      );
     });
   });
 };
