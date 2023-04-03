@@ -46,11 +46,11 @@ module.exports = (env, argv) => ({
       useShortDoctype: true,
     }),
     new MiniCssExtractPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.API_URL': JSON.stringify(
-        argv.mode === 'production' ? PROD_SERVER_BACKEND_API : DEV_SERVER_BACKEND_API,
-      ),
-    }),
+    // new webpack.DefinePlugin({
+    //   'process.env.API_URL': JSON.stringify(
+    //     argv.mode === 'production' ? PROD_SERVER_BACKEND_API : DEV_SERVER_BACKEND_API,
+    //   ),
+    // }),
     new Dotenv(),
   ],
   devServer: {

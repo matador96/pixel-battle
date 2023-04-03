@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-const ws = io(process.env.API_URL, {
+const ws = io('/api', {
   transports: ['websocket'],
   withCredentials: true,
   reconnection: false,
