@@ -22,10 +22,12 @@ module.exports = function (server) {
     });
 
     socket.on("try connect pixelgame", () => {
+      console.log("connect");
       io.emit("connect pixelgame", Controller.getPixels());
     });
 
     socket.on("try patch pixelgame", (newPixel) => {
+      console.log("patch");
       io.emit(
         "patch pixelgame",
         Controller.updatePixel(newPixel.x, newPixel.y, newPixel.color)
