@@ -30,13 +30,8 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "serve": "webpack serve --mode development",
-    "build": "webpack --mode production",
-    "start": "webpack serve --mode development",
-    "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json|ts|tsx)\"",
-    "lint": "eslint --fix --ext .js,.ts,.tsx ./src --ignore-path .gitignore",
-    "typescript": "tsc --project tsconfig.json --noEmit",
-    "test": "jest"
+    "build": "react-scripts build",
+    "start": "react-scripts start"
   },
   "eslintConfig": {
     "extends": [

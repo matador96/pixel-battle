@@ -43,31 +43,26 @@ const GameCoordinates = () => (
   </div>
 );
 
-const GameZoom = () => (
-  <div className="game-zoom">
-    <ButtonGroup size="md" isAttached variant="solid" color="gray">
-      <IconButton aria-label="Add to friends" icon={<AiOutlineMinus />} />
+// const GameZoom = () => (
+//   <div className="game-zoom">
+//     <ButtonGroup size="md" isAttached variant="solid" color="gray">
+//       <IconButton aria-label="Add to friends" icon={<AiOutlineMinus />} />
 
-      <Button style={{ width: '140px' }}>
-        <RangeSlider aria-label={['min', 'max']} defaultValue={[0, 30]}>
-          <RangeSliderTrack>
-            <RangeSliderFilledTrack />
-          </RangeSliderTrack>
-          <RangeSliderThumb index={1} />
-        </RangeSlider>
-      </Button>
+//       <Button style={{ width: '140px' }}>
+//         <RangeSlider aria-label={['min', 'max']} defaultValue={[0, 30]}>
+//           <RangeSliderTrack>
+//             <RangeSliderFilledTrack />
+//           </RangeSliderTrack>
+//           <RangeSliderThumb index={1} />
+//         </RangeSlider>
+//       </Button>
 
-      <IconButton aria-label="Add to friends" icon={<AiOutlinePlus />} />
-    </ButtonGroup>
-  </div>
-);
+//       <IconButton aria-label="Add to friends" icon={<AiOutlinePlus />} />
+//     </ButtonGroup>
+//   </div>
+// );
 
-interface GameSettings {
-  choosedColor: string;
-  onChangeColor: any;
-}
-
-const GameSettings = (props: GameSettings) => {
+const GameSettings = (props) => {
   const { choosedColor, onChangeColor } = props;
   return (
     <div className="game-settings">
