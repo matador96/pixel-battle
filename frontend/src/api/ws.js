@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-const ws = io('case.rocketeers.ru', {
+const ws = io('/', {
   transports: ['websocket'],
   withCredentials: true,
   reconnection: false,
