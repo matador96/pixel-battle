@@ -257,8 +257,12 @@ export default class Canvas extends React.Component {
     if (isDragging) return;
 
     const { numberOfBlock_X, numberOfBlock_Y } = this.getHoveredNumberOfBlocks(e);
-    const { canvasContext } = this;
 
+    if (!numberOfBlock_X || !numberOfBlock_Y) {
+      return;
+    }
+
+    // const { canvasContext } = this;
     // canvasContext.fillStyle = this.props.choosedColor;
     // canvasContext.fillRect(numberOfBlock_X, numberOfBlock_Y, 1, 1);
 
