@@ -2,8 +2,8 @@ import React from 'react';
 import colors from './../consts/colors';
 import { default as socket } from '../api/ws';
 
-const width = 200; // Elements in row
-const height = 100; // Elements in cell
+const width = 260; // Elements in row
+const height = 120; // Elements in cell
 
 const defaultScaleCanvas = 10; // в то же время это размер пикселя в пикселях
 
@@ -41,6 +41,14 @@ export default class Canvas extends React.Component {
 
     socket.on('connect pixelgame', (value) => {
       this.setState({ elements: value }, () => this.updateCanvas());
+    });
+
+    socket.on('cooldown pixelgame', (value) => {
+      this.props.toast({
+        title: `У вас кулдаун ${value} секунд`,
+        status: 'error',
+        isClosable: true,
+      });
     });
 
     socket.on('patch pixelgame', (value) => {
@@ -251,8 +259,8 @@ export default class Canvas extends React.Component {
     const { numberOfBlock_X, numberOfBlock_Y } = this.getHoveredNumberOfBlocks(e);
     const { canvasContext } = this;
 
-    canvasContext.fillStyle = this.props.choosedColor;
-    canvasContext.fillRect(numberOfBlock_X, numberOfBlock_Y, 1, 1);
+    // canvasContext.fillStyle = this.props.choosedColor;
+    // canvasContext.fillRect(numberOfBlock_X, numberOfBlock_Y, 1, 1);
 
     socket.emit('try patch pixelgame', {
       x: numberOfBlock_X,

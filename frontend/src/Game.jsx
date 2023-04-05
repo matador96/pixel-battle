@@ -20,6 +20,7 @@ import {
 } from '@chakra-ui/react';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import UserConnect from './socket/connect';
+import { useToast } from '@chakra-ui/react';
 
 const GameOnline = () => (
   <div className="game-online">
@@ -93,13 +94,14 @@ const GameSettings = (props) => {
 
 const Game = () => {
   const [choosedColor, setColor] = useState('#5CBF0D');
+  const toast = useToast();
 
   return (
     <div className="game">
       <GameSettings choosedColor={choosedColor} onChangeColor={setColor} />
       <GameOnline />
       <GameCoordinates />
-      <Canvas choosedColor={choosedColor} />
+      <Canvas choosedColor={choosedColor} toast={toast} />
     </div>
   );
 };
