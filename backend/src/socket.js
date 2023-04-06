@@ -1,6 +1,6 @@
 const Controller = require("./controller");
 
-const coolDownInMillis = 3 * 1000;
+const coolDownInMillis = 2 * 1000;
 
 module.exports = function (server) {
   const io = require("socket.io")(server, {
