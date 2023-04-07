@@ -31,7 +31,7 @@ module.exports = function (server) {
 
     socket.on("try connect pixelgame", () => {
       const timestampMillis = Date.now();
-      io.emit("connect pixelgame", Controller.getPixels());
+      socket.emit("connect pixelgame", Controller.getPixels());
     });
 
     socket.on("try patch pixelgame", (newPixel) => {

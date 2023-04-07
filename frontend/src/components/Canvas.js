@@ -1,6 +1,29 @@
 import React from 'react';
 import colors from './../consts/colors';
 import { default as socket } from '../api/ws';
+import { Spinner } from '@chakra-ui/react';
+import styled from 'styled-components';
+
+const TransitionOff = 500;
+
+const LoaderFullWindow = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  background: #c9c9c9;
+  flex-direction: column;
+  span {
+    margin-top: 15px;
+    font-size: 14px;
+  }
+}
+`;
 
 const width = 260; // Elements in row
 const height = 120; // Elements in cell
@@ -9,6 +32,7 @@ const defaultScaleCanvas = 10; // в то же время это размер п
 
 const ZOOM_MAX = 40;
 const ZOOM_MIN = 5;
+
 export default class Canvas extends React.Component {
   constructor(props) {
     super(props);
@@ -17,12 +41,30 @@ export default class Canvas extends React.Component {
       dragStartPosition: { x: 0, y: 0 },
       currentTransformedCursor: { x: 0, y: 0 },
       isDragging: false,
+      isLoaded: false,
+      loaderText: 'Подключение',
       elements: new Map(),
     };
   }
 
   componentDidMount() {
     // this.generateRandomPixels();
+    socket.on('connect pixelgame', (value) => {
+      setTimeout(() => {
+        this.setState({ elements: value, isLoaded: true }, () => this.initializeGame());
+      }, TransitionOff);
+    });
+
+    setTimeout(() => {
+      this.setState({ loaderText: 'Подключились' }, () => {
+        setTimeout(() => {
+          socket.emit('try connect pixelgame');
+        }, 500);
+      });
+    }, 500);
+  }
+
+  initializeGame() {
     this.canvas = this.refs.canvas;
     this.canvasContext = this.canvas.getContext('2d');
 
@@ -30,18 +72,21 @@ export default class Canvas extends React.Component {
     this.setActualHeightAndWidthForCanvas();
     canvasContext.scale(defaultScaleCanvas, defaultScaleCanvas);
 
+    const centeredPosition = {
+      x: width / 4,
+      y: height / 4,
+    };
+
+    canvasContext.translate(centeredPosition.x, centeredPosition.y);
+
+    this.zoom(false); // this runs auto  this.updateCanvas();
+
     canvas.addEventListener('wheel', (e) => this.onWheel(e), false);
     canvas.addEventListener('mouseup', (e) => this.onMouseUp(e), false);
     canvas.addEventListener('click', (e) => this.onClickPixel(e), false);
     canvas.addEventListener('mousedown', (e) => this.onMouseDown(e), false);
     canvas.addEventListener('mousemove', (e) => this.onMouseMove(e), false);
     canvas.addEventListener('mouseleave', (e) => this.setState({ isDragging: false }), false);
-
-    socket.emit('try connect pixelgame');
-
-    socket.on('connect pixelgame', (value) => {
-      this.setState({ elements: value }, () => this.updateCanvas());
-    });
 
     socket.on('cooldown pixelgame', (value) => {
       this.props.toast({
@@ -54,6 +99,8 @@ export default class Canvas extends React.Component {
     socket.on('patch pixelgame', (value) => {
       this.setState({ elements: { ...this.state.elements, ...value } }, () => this.updateCanvas());
     });
+
+    this.setState({ isLoaded: true });
   }
 
   setActualHeightAndWidthForCanvas() {
@@ -279,6 +326,16 @@ export default class Canvas extends React.Component {
   }
 
   render() {
-    return <canvas ref="canvas" width={'100%'} height={'100vh'} className="drawer" />;
+    return (
+      <>
+        <canvas ref="canvas" width={'100%'} height={'100vh'} className="drawer" />
+        {!this.state.isLoaded && (
+          <LoaderFullWindow>
+            <Spinner thickness="2px" speed="0.65s" emptyColor="gray.400" size="xl" />
+            <span>{this.state.loaderText}</span>
+          </LoaderFullWindow>
+        )}
+      </>
+    );
   }
 }

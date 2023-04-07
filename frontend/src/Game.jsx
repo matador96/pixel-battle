@@ -1,24 +1,7 @@
 import React, { useState } from 'react';
 import Canvas from './components/Canvas';
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Text,
-  Stack,
-  Button,
-  IconButton,
-  ButtonGroup,
-} from '@chakra-ui/react';
+import { Card, CardBody, Text } from '@chakra-ui/react';
 import colors from './consts/colors';
-import {
-  RangeSlider,
-  RangeSliderTrack,
-  RangeSliderFilledTrack,
-  RangeSliderThumb,
-} from '@chakra-ui/react';
-import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import UserConnect from './socket/connect';
 import { useToast } from '@chakra-ui/react';
 
@@ -77,11 +60,14 @@ const GameSettings = (props) => {
                     onClick={() => onChangeColor(color.hex)}
                     id={color.hex}
                     data-color={color.hex}
-                    style={{
-                      backgroundColor: color.rgb,
-                      opacity: choosedColor === color.hex ? 0.2 : 1,
-                    }}
-                  />
+                    className={choosedColor === color.hex ? 'choosed' : ''}
+                  >
+                    <div
+                      style={{
+                        backgroundColor: color.rgb,
+                      }}
+                    />
+                  </div>
                 ))}
               </div>
             </div>
@@ -93,7 +79,7 @@ const GameSettings = (props) => {
 };
 
 const Game = () => {
-  const [choosedColor, setColor] = useState('#5CBF0D');
+  const [choosedColor, setColor] = useState(colors[0].hex);
   const toast = useToast();
 
   return (

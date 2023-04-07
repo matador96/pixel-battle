@@ -85,9 +85,25 @@ iframe {
   width: 32px;
   height: 32px;
   margin: 2px 2px;
-  position: relative;
-  border: 1px #6a6363 solid;
-  border-radius: 6px;
+
+  &.choosed {
+    & > div {
+      box-shadow: 3px 3px white, 4px 4px #c76637;
+      top: -4px;
+      left: -4px;
+      width: 32px;
+      height: 32px;
+      border: 2px #6a6363 solid;
+    }
+  }
+
+  & > div {
+    width: 28px;
+    height: 28px;
+    position: relative;
+    border: 2px #6a6363 solid;
+    border-radius: 6px;
+  }
 }
 .canvas-block {
   height: 500px;
