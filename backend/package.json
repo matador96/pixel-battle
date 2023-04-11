@@ -26,7 +26,7 @@
     "start-watch": "nodemon server.js --inspect=0.0.0.0:9229",
     "start-dev": "set NODE_ENV=development&& nodemon server.js",
     "prod": "export NODE_ENV=production&&nodemon server.js",
-    "prod-linux": "export NODE_ENV=production && pm2 start server.js --watch -f --update-env",
+    "prod-linux": "export NODE_ENV=production && pm2 start server.js --watch -f --update-env --name pixelBackendv",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
