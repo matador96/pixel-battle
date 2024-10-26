@@ -5,7 +5,9 @@ const coolDownInMillis = 2 * 1000;
 module.exports = function (server) {
   const io = require("socket.io")(server, {
     cors: {
+      origin: "https://pixel.roketka.ru",
       // origin: "https://127.0.0.1:3003",
+
       methods: ["GET"],
       credentials: true,
     },
