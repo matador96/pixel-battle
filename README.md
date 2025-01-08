@@ -3,5 +3,5 @@
 
 Стек: React, Canvas, Node, Socket, Nginx.
 
-http://pixel.rocketeers.ru
+[http://pixel.rocketeers.ru](https://pixel.roketka.ru)
 Run backend server: pm2 start "npm start" --name pixelBackend
